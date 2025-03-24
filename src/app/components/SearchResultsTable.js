@@ -82,15 +82,15 @@ export default function SearchResultsTable({ searchParams }) {
       fetchDogs();
     }, [searchParams]); // Re-run when the search parameters change.
   
-    if (loading) return <div>Loading...</div>;
+    if (loading) return <div className="skeleton"></div>;
     if (error) return <div>Error: {error.message}</div>;
 
     return (
-        <div className="overflow-x-auto overflow-y-scroll h-dvh">
-            <table className="table">
-                <thead>
-                    <tr>
-                        <th>Yes/No</th>
+        <div className="overflow-x-auto w-fit">
+            <table className="table table-pin-rows">
+                <thead className="stick top-0">
+                    <tr className="text-center">
+                        <th>Select</th>
                         <th>Image</th>
                         <th>Name</th>
                         <th>Breed</th>
