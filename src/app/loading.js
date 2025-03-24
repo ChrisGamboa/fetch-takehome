@@ -1,10 +1,9 @@
 function SuspensedLoginForm() {
-
     return (
         <form>
             <fieldset className="fieldset w-xs sm:w-sm md:w-md lg:w-lg bg-base-200 border border-base-300 p-4 rounded-box">
                 <div className="flex justify-center items-center">
-                    <span className="loading loading-spinner text-primary alig"></span>
+                    <span className="loading loading-spinner text-primary"></span>
                 </div>
             </fieldset>
         </form>
