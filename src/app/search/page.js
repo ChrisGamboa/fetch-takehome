@@ -1,7 +1,13 @@
+"use client"
+
+import { useState, useEffect } from "react";
 import { BreedFiltersMenu } from "@/components/BreedFiltersMenu";
 import SearchBar from "@/components/SearchBar";
 import Image from "next/image";
 import dogPic from "./dog.jpg"
+import SearchResultsTable from "@/components/SearchResultsTable";
+
+const heroText = "Let's find you the purrrfect friend!"
 
 export default function SearchPage() {
     return (
@@ -24,10 +30,10 @@ export default function SearchPage() {
                 </div>
 
                 <h1 className='text-sm m-2 md:text-lg lg:text-2xl lg:mb-8 font-bold text-center'>
-                    Let's find you the purrrfect friend!
+                    {heroText}
                 </h1>
                 <SearchBar className="" />
-
+                <SearchResultsTable />
             </div>
         </div>
 
