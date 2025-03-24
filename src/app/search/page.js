@@ -1,7 +1,4 @@
-"use client"
 import { BreedFiltersMenu } from "@/components/BreedFiltersMenu";
-
-import { useState, useEffect } from "react";
 
 export default function SearchPage() {
     return (

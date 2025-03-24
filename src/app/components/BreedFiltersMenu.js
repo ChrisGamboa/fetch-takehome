@@ -1,3 +1,5 @@
+"use client"
+
 import { BreedFilterRow } from "./BreedFilterRow"
 import { useState, useEffect } from "react";
 
