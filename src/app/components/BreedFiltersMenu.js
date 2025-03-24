@@ -45,7 +45,7 @@ export function BreedFiltersMenu() {
                     <th className="">Breed Name</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody className="">
                 {
                     breeds.map((breed, index) => (
                         <BreedFilterRow key={index} breed={breed} />
