@@ -5,7 +5,7 @@ export default function SearchResultsRow({dog}) {
                 <input type="checkbox" className="checkbox" />
             </td>
             <td>
-                <img src={dog.img} alt="pic of dog" className="avatar w-24 rounded-full"/>
+                <img src={dog.img} alt="pic of dog" className="avatar rounded-full"/>
             </td>
             <td>
                 {dog.name}

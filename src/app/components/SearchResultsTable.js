@@ -1,7 +1,6 @@
 "use client"
 import { useState, useEffect } from "react"
 import SearchResultsRow from "./SearchResultsRow"
-import PaginationBar from "./PaginationBar";
 
 export default function SearchResultsTable({ dogIds }) {
     const [loading, setLoading] = useState(true);
@@ -41,9 +40,19 @@ export default function SearchResultsTable({ dogIds }) {
     if (error) return <div>Error: {error.message}</div>;
 
     return (
-        <div className="overflow-x-auto rounded-box">
+        <div className="overflow-x-auto max-h-full rounded-box">
             <table className="table">
-                <tbody>
+                <thead className="sticky top-0 z-1 bg-base-100">
+                    <tr className="">
+                        <td>Select</td>
+                        <th className="">Image</th>
+                        <th>Name</th>
+                        <th>Breed</th>
+                        <th>Age</th>
+                        <th>Zip Code</th>
+                    </tr>
+                </thead>
+                <tbody className="w-auto p-4">
                     {
                         // use a state variable withead the array of dogs to pass the dog object into component <SearchResultsRow />
                         dogs.map((dog) => (

@@ -1,11 +1,9 @@
 "use client"
 
-import { BreedFiltersMenu } from "@/components/BreedFiltersMenu";
 import SearchBar from "@/components/SearchBar";
 import Image from "next/image";
 import dogPic from "./dog.jpg"
 import SearchResultsTable from "@/components/SearchResultsTable";
-import PaginationBar from "@/components/PaginationBar";
 import { useState, useEffect } from "react";
 
 
@@ -89,11 +87,8 @@ export default function SearchPage() {
     }, [searchParams])
 
     return (
-        <div className="flex flex-row min-h-screen max-h-screen">
-            <div className="col-span-1 overflow-x-auto h-dvh rounded-box border border-base-content/5 bg-base-100 w-xs sm:w-sm md:w-fit lg:m-4">
-                <BreedFiltersMenu />
-            </div>
-            <div className="flex flex-col w-xs md:w-full md:m-2 lg:m-4 items-center">
+        <div className="flex flex-row min-h-screen max-h-dvh">
+            <div className="flex flex-col flex-1 w-xs md:w-full lg:m-4 items-center">
                 {/* Hero section */}
                 <div className="">
                     <div className="">
@@ -112,25 +107,13 @@ export default function SearchPage() {
                 <h1 className='text-sm m-2 md:text-lg lg:text-2xl lg:mb-8 font-bold text-center'>
                     {heroText}
                 </h1>
-                <SearchBar className="" />
-                <div className="flex-1 w-fit mt-4">
-                    <table className="table table-pin-rows">
-                        <thead className="stick top-0">
-                            <tr className="">
-                                <th>Select</th>
-                                <th className="w-24s">Image</th>
-                                <th>Name</th>
-                                <th>Breed</th>
-                                <th>Age</th>
-                                <th>Zip Code</th>
-                            </tr>
-                        </thead>
-                    </table>
+                <div className="m-2 md:m-4 lg:m-8">
+                    <SearchBar />
                 </div>
-                <div className="overflow-y-auto w-auto m-4">
+                <div className="flex-1-1 overflow-y-auto overflow-x-auto lg:w-[75%] text-xl">
                     <SearchResultsTable dogIds={dogIdsResponse.resultIds} />
                 </div>
-                <div className="join">
+                <div className="join mt-2">
                     <button onClick={goPrev} className="join-item btn" disabled={!dogIdsResponse.prev} >« Previous</button>
                     <button onClick={goNext} className="join-item btn" disabled={!dogIdsResponse.next}>Next »</button>
                 </div>
