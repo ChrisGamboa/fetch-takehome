@@ -21,6 +21,7 @@ export default function SearchResultsTable({ dogIds }) {
                     body: JSON.stringify(dogIds)
                 });
                 if (!postResponse.ok) {
+                    console.error('Error fetching dog data from dog ids: ', postResponse)
                     throw new Error(`Post error! status: ${postResponse.status}`);
                 }
                 const dogsData = await postResponse.json();

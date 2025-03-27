@@ -5,14 +5,13 @@ import Image from "next/image";
 import dogPic from "./dog.jpg"
 import SearchResultsTable from "@/components/SearchResultsTable";
 import { useState, useEffect } from "react";
+import NavBar from "@/components/NavBar";
 
 
 const heroText = "Let's find you the purrrfect friend!"
 
-
-
 export default function SearchPage() {
-    const [searchParams, setSearchParams] = useState();
+    const [searchParams, setSearchParams] = useState({});
     const [dogIdsResponse, setDogIdsResponse] = useState({});
 
     async function goPrev() {
@@ -54,6 +53,10 @@ export default function SearchPage() {
         return query.toString();
     };
 
+    function sortBy(filter, order) {
+        return `sort${filter}:${order}`;
+    }
+
 
     async function fetchDogIdsResponse(destination) {
         let searchUrl;
@@ -62,7 +65,7 @@ export default function SearchPage() {
         } else {
             // Build the URL with query parameters for the GET request.
             const queryString = buildQueryString(searchParams);
-            searchUrl = `https://frontend-take-home-service.fetch.com/dogs/search?${queryString}`;
+            searchUrl = `https://frontend-take-home-service.fetch.com/dogs/search?${queryString}&sort=breed:asc`;
         }
 
         const searchResponse = await fetch(searchUrl, {
@@ -87,10 +90,11 @@ export default function SearchPage() {
     }, [searchParams])
 
     return (
-        <div className="flex flex-row min-h-screen max-h-dvh">
+        <div className="flex flex-rows max-h-dvh">
             <div className="flex flex-col flex-1 w-xs md:w-full lg:m-4 items-center">
+                <NavBar />
                 {/* Hero section */}
-                <div className="">
+                <div className="max-h-[20dvh]">
                     <div className="">
                         <Image src={dogPic}
                             className="rounded-full m-2 md:m-4 lg:m-8"
@@ -107,9 +111,9 @@ export default function SearchPage() {
                 <h1 className='text-sm m-2 md:text-lg lg:text-2xl lg:mb-8 font-bold text-center'>
                     {heroText}
                 </h1>
-                <div className="m-2 md:m-4 lg:m-8">
+                {/* <div className="m-2 md:m-4 lg:m-8">
                     <SearchBar />
-                </div>
+                </div> */}
                 <div className="flex-1-1 overflow-y-auto overflow-x-auto lg:w-[75%] text-xl">
                     <SearchResultsTable dogIds={dogIdsResponse.resultIds} />
                 </div>
