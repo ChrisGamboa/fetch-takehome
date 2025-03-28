@@ -1,8 +1,6 @@
-'use client'
-import { useState, useEffect } from "react";
+import LogOutButton from "./LogoutButton";
 
 function BreedItem({breedObject, updateBreedFilter, breeds}) {
-
     // update the breed filter state in the SearchPage component.
     async function handleBreedClick() {
         const tempBreeds = [...breeds]
@@ -22,7 +20,7 @@ function BreedItem({breedObject, updateBreedFilter, breeds}) {
     return (
         <li>
             <label onClick={handleBreedClick}>
-                <input type="checkbox" className="checkbox" />
+                <input type="checkbox" className="checkbox" value={breedObject.checked} />
                 {breedObject.breedName}
             </label>
         </li>
@@ -32,6 +30,7 @@ function BreedItem({breedObject, updateBreedFilter, breeds}) {
 export default function NavBar({breeds, updateBreedFilter}) {
     return (
         <div className="navbar bg-primary shadow-sm z-2 sticky top-0 pr-4 lg:pr-8">
+            {/* mobile nav bar */}
             <div className="navbar-start">
                 <div className="dropdown">
                     <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -57,6 +56,8 @@ export default function NavBar({breeds, updateBreedFilter}) {
                 </div>
                 <a className="btn btn-ghost text-xl">Fetch</a>
             </div>
+            
+            {/* desktop nav bar */}
             <div className="navbar-center hidden lg:flex">
                 <h2 className="font-bold">Filters:</h2>
                 <ul className="menu menu-horizontal px-1 ">
@@ -74,9 +75,7 @@ export default function NavBar({breeds, updateBreedFilter}) {
                     </li>
                 </ul>
             </div>
-            <div className="navbar-end">
-                <a className="btn bg-neutral-content">Logout</a>
-            </div>
+            <LogOutButton />
         </div>
     )
 }

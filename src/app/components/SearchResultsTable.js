@@ -41,7 +41,7 @@ export default function SearchResultsTable({ dogIds, updateSelectedDogs, selecte
     if (error) return <div>Error: {error.message}</div>;
 
     return (
-        <div className="overflow-x-auto max-h-full rounded-box lg:shadow-2xl lg:shadow-primary-600">
+        <div className="overflow-x-auto max-h-full rounded-box shadow-2xl shadow-primary-600">
             <table className="table">
                 <thead className="sticky top-0 z-1">
                     <tr className="text-center bg-primary text-primary-content divider-x">

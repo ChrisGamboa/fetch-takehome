@@ -1,12 +1,12 @@
 "use client"
 
-import SearchBar from "@/components/SearchBar";
 import Image from "next/image";
 import dogPic from "./dog.jpg"
 import SearchResultsTable from "@/components/SearchResultsTable";
 import { useState, useEffect } from "react";
 import NavBar from "@/components/NavBar";
 import MatchWithDogButton from "@/components/MatchWithDogButton";
+import debounce from "lodash.debounce";
 
 
 const heroText = "Let's find you the purrrfect friend!"
@@ -34,7 +34,7 @@ async function fetchBreeds() {
 }
 
 function sortBy(filter, order) {
-    return `sort${filter}:${order}`;
+    return `&sort${filter}:${order}`;
 }
 
 // fetch dog ids from the api that match filters, by default fetches all dogs and sorts in asc order by breed
@@ -74,14 +74,14 @@ export default function SearchPage() {
     async function goPrev() {
         const newResponse = await fetchDogIdsResponse(dogIdsResponse.prev);
         setDogIdsResponse(newResponse);
-        window.scrollTo({top: 0, behavior: 'smooth'});
+        window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
     // function to handle forwards pagination
     async function goNext() {
         const newResponse = await fetchDogIdsResponse(dogIdsResponse.next);
         setDogIdsResponse(newResponse);
-        window.scrollTo({top: 0, behavior: 'smooth'});
+        window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
     // callback function for child components to update breed filter state
@@ -112,6 +112,39 @@ export default function SearchPage() {
         getDogIds();
     }, [])
 
+    useEffect(() => {
+        // Create a debounced function to fetch filtered dog IDs
+        const debouncedFetch = debounce(() => {
+            const selectedBreeds = breeds
+                .filter((breed) => breed.checked)
+                .map((breed) => breed.breedName);
+
+            let queryUrl = `/dogs/search?`;
+            if (selectedBreeds.length > 0) {
+                selectedBreeds.forEach((breed) => {
+                    queryUrl += `&breeds[]=${breed}`;
+                }
+                )
+            }
+
+            queryUrl += `&sort=breed:asc`;
+
+            fetchDogIdsResponse(queryUrl)
+                .then((response) => setDogIdsResponse(response))
+                .catch((error) =>
+                    console.error("Error fetching filtered dogs:", error)
+                );
+        }, 500); // 500ms debounce delay
+
+        debouncedFetch();
+
+       // Cleanup: cancel the debounced call if breeds changes before 500ms
+        return () => {
+            debouncedFetch.cancel();
+        };
+    }, [breeds]);
+
+
     return (
         <div className="flex flex-rows min-h-dvh max-h-[calc(100%*2)] w-dvw">
             <div className="flex flex-col flex-1 items-center max-w-fit">
@@ -129,7 +162,9 @@ export default function SearchPage() {
                             style={{
                                 width: 'auto',
                                 height: '20dvh'
-                            }}></Image>
+                            }}
+                            priority={true}
+                            ></Image>
                     </div>
 
                 </div>
