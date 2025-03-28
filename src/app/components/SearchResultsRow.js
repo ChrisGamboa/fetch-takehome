@@ -24,7 +24,7 @@ export default function SearchResultsRow({ dog, selectedDogs, updateSelectedDogs
                 <input onClick={handleDogSelection} type="checkbox" className="checkbox" />
             </td>
             <td className="w-1/4">
-                <img src={dog.img} alt="pic of dog" className="avatar rounded-full"/>
+                <img src={dog.img} alt="pic of dog" className="avatar rounded-full shadow-md"/>
                 {/* <Image src={dog.img}
                     className="rounded-full m-2 md:m-4 lg:m-8"
                     alt="dog picture"

@@ -2,6 +2,7 @@
 'use client'
 import { useState } from "react";
 
+// This function fetches the matched dog ID from the API
 async function getMatched(dogs) {
     if (!dogs || dogs.length === 0) {
         console.warn('No dogs selected for matching.');
@@ -32,6 +33,8 @@ async function getMatched(dogs) {
     }
 }
 
+
+// This function fetches the dog data for the matched dog
 async function getMatchDogData({ match }) {
     if (!match || Object.keys(match).length === 0) {
         console.warn('No match data available.');
@@ -68,6 +71,7 @@ export default function MatchWithDogButton({ selectedDogs }) {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isNoDogsModalOpen, setIsNoDogsModalOpen] = useState(false);
 
+    // Function to handle the button click to orchestrate fetch matched dog and its data
     async function handleClick() {
         const matchedDogId = await getMatched(selectedDogs);
         if (matchedDogId === 'nodogs') {
