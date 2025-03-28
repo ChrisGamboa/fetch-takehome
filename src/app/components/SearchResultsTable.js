@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react"
 import SearchResultsRow from "./SearchResultsRow"
 
-export default function SearchResultsTable({ dogIds }) {
+export default function SearchResultsTable({ dogIds, updateSelectedDogs, selectedDogs }) {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [dogs, setDogs] = useState([]);
@@ -57,7 +57,7 @@ export default function SearchResultsTable({ dogIds }) {
                     {
                         // use a state variable withead the array of dogs to pass the dog object into component <SearchResultsRow />
                         dogs.map((dog) => (
-                            <SearchResultsRow key={dog.id} dog={dog} />
+                            <SearchResultsRow selectedDogs={selectedDogs} updateSelectedDogs={updateSelectedDogs} key={dog.id} dog={dog} />
                         ))
                     }
                 </tbody>

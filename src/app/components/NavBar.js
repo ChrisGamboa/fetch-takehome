@@ -1,10 +1,27 @@
 'use client'
 import { useState, useEffect } from "react";
 
-function BreedItem({breedObject}) {
+function BreedItem({breedObject, updateBreedFilter, breeds}) {
+
+    // update the breed filter state in the SearchPage component.
+    async function handleBreedClick() {
+        let tempBreeds = [...breeds]
+        let newBreedObject = {...breedObject}
+        newBreedObject.checked = !newBreedObject.checked;
+
+        tempBreeds.map((breed) => {
+            if (breed.breedName === newBreedObject.breedName) {
+                breed.checked = newBreedObject.checked;
+            }
+        }
+        )
+        console.log("New breeds object", tempBreeds)
+        updateBreedFilter(tempBreeds)    
+    }
+
     return (
         <li>
-            <label>
+            <label onClick={handleBreedClick}>
                 <input type="checkbox" className="checkbox" />
                 {breedObject.breedName}
             </label>
@@ -12,37 +29,9 @@ function BreedItem({breedObject}) {
     )
 }
 
-export default function NavBar() {
-    const [breeds, setBreeds] = useState([]);
-
-    useEffect(() => {
-        async function fetchData() {
-            const tempBreeds = await fetch("https://frontend-take-home-service.fetch.com/dogs/breeds", {
-                method: "GET",
-                credentials: "include"
-            })
-
-            const parsedBreeds = await tempBreeds.json()
-            const breedsConstructor = []
-
-            parsedBreeds.forEach(breed => {
-                breedsConstructor.push(
-                    {
-                        checked: false,
-                        breedName: breed
-                    }
-                )
-            })
-
-            console.log("Breeds constructor: ", breedsConstructor)
-
-            setBreeds(breedsConstructor);
-        }
-        fetchData();
-    }, [])
-
+export default function NavBar({breeds, updateBreedFilter}) {
     return (
-        <div className="navbar shadow-sm z-2">
+        <div className="navbar bg-primary shadow-sm z-2">
             <div className="navbar-start">
                 <div className="dropdown">
                     <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -58,7 +47,7 @@ export default function NavBar() {
                             <ul className="p-2 max-h-[50dvh] overflow-y-auto">
                                 {
                                     breeds.map((breed, index) => (
-                                        <BreedItem key={index} breedObject={breed} />
+                                        <BreedItem key={index} breedObject={breed} breeds={breeds} updateBreedFilter={updateBreedFilter} />
                                     ))
                                 }
                             </ul>
@@ -77,7 +66,7 @@ export default function NavBar() {
                             <ul className="p-2 max-h-[50dvh] overflow-y-auto">
                                 {
                                     breeds.map((breed, index) => (
-                                        <BreedItem key={index} breedObject={breed} />
+                                        <BreedItem key={index} breedObject={breed} updateBreedFilter={updateBreedFilter} />
                                     ))
                                 }
                             </ul>
@@ -86,7 +75,7 @@ export default function NavBar() {
                 </ul>
             </div>
             <div className="navbar-end">
-                <a className="btn bg-secondary">Logout</a>
+                <a className="btn bg-neutral-content">Logout</a>
             </div>
         </div>
     )
