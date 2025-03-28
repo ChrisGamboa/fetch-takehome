@@ -5,7 +5,7 @@ function BreedItem({breedObject, updateBreedFilter, breeds}) {
 
     // update the breed filter state in the SearchPage component.
     async function handleBreedClick() {
-        let tempBreeds = [...breeds]
+        const tempBreeds = [...breeds]
         let newBreedObject = {...breedObject}
         newBreedObject.checked = !newBreedObject.checked;
 
@@ -31,7 +31,7 @@ function BreedItem({breedObject, updateBreedFilter, breeds}) {
 
 export default function NavBar({breeds, updateBreedFilter}) {
     return (
-        <div className="navbar bg-primary shadow-sm z-2">
+        <div className="navbar bg-primary shadow-sm z-2 sticky top-0 pr-4 lg:pr-8">
             <div className="navbar-start">
                 <div className="dropdown">
                     <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -40,11 +40,11 @@ export default function NavBar({breeds, updateBreedFilter}) {
                     </div>
                     <ul
                         tabIndex={0}
-                        className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
+                        className="menu  dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2">
                         <li>
-                        <details>
+                        <details className="rounded-box">
                             <summary>Breeds</summary>
-                            <ul className="p-2 max-h-[50dvh] overflow-y-auto">
+                            <ul className="p-2 max-h-[50dvh] overflow-y-auto rounded-box shadow-xl">
                                 {
                                     breeds.map((breed, index) => (
                                         <BreedItem key={index} breedObject={breed} breeds={breeds} updateBreedFilter={updateBreedFilter} />
@@ -59,14 +59,14 @@ export default function NavBar({breeds, updateBreedFilter}) {
             </div>
             <div className="navbar-center hidden lg:flex">
                 <h2 className="font-bold">Filters:</h2>
-                <ul className="menu menu-horizontal px-1">
+                <ul className="menu menu-horizontal px-1 ">
                     <li>
                         <details>
                             <summary>Breeds</summary>
-                            <ul className="p-2 max-h-[50dvh] overflow-y-auto">
+                            <ul className="p-2 max-h-[50dvh] overflow-y-auto shadow-xl">
                                 {
                                     breeds.map((breed, index) => (
-                                        <BreedItem key={index} breedObject={breed} updateBreedFilter={updateBreedFilter} />
+                                        <BreedItem key={index} breedObject={breed} breeds={breeds} updateBreedFilter={updateBreedFilter} />
                                     ))
                                 }
                             </ul>

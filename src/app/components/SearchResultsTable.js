@@ -7,11 +7,11 @@ export default function SearchResultsTable({ dogIds, updateSelectedDogs, selecte
     const [error, setError] = useState(null);
     const [dogs, setDogs] = useState([]);
 
+    // Fetch complete dog data based on dog IDs on component mount
     useEffect(() => {
-        // Async function to perform both fetch calls in sequence.
         const fetchDogs = async () => {
             try {
-                // Now use the fetched dogIds in the POST request to get full dog data.
+                // Now use the fetched dogIds in the POST request payload to get full dog data.
                 const postResponse = await fetch('https://frontend-take-home-service.fetch.com/dogs', {
                     method: 'POST',
                     headers: {
@@ -41,10 +41,10 @@ export default function SearchResultsTable({ dogIds, updateSelectedDogs, selecte
     if (error) return <div>Error: {error.message}</div>;
 
     return (
-        <div className="overflow-x-auto max-h-full rounded-box">
+        <div className="overflow-x-auto max-h-full rounded-box lg:shadow-2xl lg:shadow-primary-600">
             <table className="table">
-                <thead className="sticky top-0 z-1 bg-base-100">
-                    <tr className="">
+                <thead className="sticky top-0 z-1">
+                    <tr className="text-center bg-primary text-primary-content divider-x">
                         <td>Select</td>
                         <th className="">Image</th>
                         <th>Name</th>
@@ -53,9 +53,9 @@ export default function SearchResultsTable({ dogIds, updateSelectedDogs, selecte
                         <th>Zip Code</th>
                     </tr>
                 </thead>
-                <tbody className="w-auto p-4">
+                <tbody className="w-auto p-4 text-center">
                     {
-                        // use a state variable withead the array of dogs to pass the dog object into component <SearchResultsRow />
+                        // use a state variable with the array of dogs to pass the dog object into each row
                         dogs.map((dog) => (
                             <SearchResultsRow selectedDogs={selectedDogs} updateSelectedDogs={updateSelectedDogs} key={dog.id} dog={dog} />
                         ))

@@ -58,7 +58,7 @@ async function fetchDogIdsResponse(destination) {
     if (!searchResponse.ok) {
         throw new Error(`Search error! status: ${searchResponse.status}`);
     }
-    
+
     const searchData = await searchResponse.json();
 
     // The GET returns { resultIds, total, next, prev }
@@ -72,25 +72,27 @@ export default function SearchPage() {
 
     // function to handle backwards pagination
     async function goPrev() {
-       const newResponse = await fetchDogIdsResponse(dogIdsResponse.prev);
+        const newResponse = await fetchDogIdsResponse(dogIdsResponse.prev);
         setDogIdsResponse(newResponse);
+        window.scrollTo({top: 0, behavior: 'smooth'});
     }
 
     // function to handle forwards pagination
     async function goNext() {
         const newResponse = await fetchDogIdsResponse(dogIdsResponse.next);
         setDogIdsResponse(newResponse);
+        window.scrollTo({top: 0, behavior: 'smooth'});
     }
 
     // callback function for child components to update breed filter state
     async function updateBreedFilter(newBreedsData) {
-       setBreeds(newBreedsData);
+        setBreeds(newBreedsData);
     }
     // callback function for child components to update list of selected dogs
     async function updateSelectedDogs(newSelectedDogs) {
-       setSelectedDogs(newSelectedDogs);
+        setSelectedDogs(newSelectedDogs);
     }
-    
+
     // fetches dog ids and breeds on component mount
     useEffect(() => {
         const getDogIds = async () => {
@@ -102,7 +104,7 @@ export default function SearchPage() {
             const breeds = await fetchBreeds();
             setBreeds(breeds);
         }
-        
+
         // Fetch breeds list on component mount
         getBreeds();
 
@@ -111,11 +113,14 @@ export default function SearchPage() {
     }, [])
 
     return (
-        <div className="flex flex-rows max-h-dvh">
-            <div className="flex flex-col flex-1 w-xs md:w-full lg:m-4 items-center">
-                <NavBar breeds={breeds} updateBreedFilter={updateBreedFilter}/>
+        <div className="flex flex-rows min-h-dvh max-h-[calc(100%*2)] w-dvw">
+            <div className="flex flex-col flex-1 items-center max-w-fit">
+                <div className="sticky top-0 z-2 w-dvw">
+
+                    <NavBar breeds={breeds} updateBreedFilter={updateBreedFilter} />
+                </div>
                 {/* Hero section */}
-                <div className="max-h-[20dvh]">
+                <div className="">
                     <div className="m-4">
                         <Image src={dogPic}
                             className="rounded-full m-2 md:m-4 lg:m-8"
@@ -132,11 +137,14 @@ export default function SearchPage() {
                 <h1 className='text-sm m-4 md:text-lg lg:text-2xl lg:m-8 font-bold text-center'>
                     {heroText}
                 </h1>
+                {/* Button to match dog based on selected dogs */}
                 <MatchWithDogButton selectedDogs={selectedDogs} />
-                <div className="flex-1-1 overflow-y-auto overflow-x-auto lg:w-[75%] text-xl">
+                {/* Table with search results */}
+                <div className="flex-1-1 overflow-x-visible w-dvw lg:w-[75%] text-xl ptb-4">
                     <SearchResultsTable selectedDogs={selectedDogs} updateSelectedDogs={updateSelectedDogs} dogIds={dogIdsResponse.resultIds} />
                 </div>
-                <div className="join mt-2">
+                {/* Pagination buttons */}
+                <div className="join m-auto p-4 md:p-4">
                     <button onClick={goPrev} className="join-item btn" disabled={!dogIdsResponse.prev} >« Previous</button>
                     <button onClick={goNext} className="join-item btn" disabled={!dogIdsResponse.next}>Next »</button>
                 </div>
