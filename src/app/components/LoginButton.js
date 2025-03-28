@@ -46,5 +46,6 @@ export default function LoginButton({ loginData }) {
     return (
         <div>
             {loading ? <LoadingIndicator /> : <button href="/search" onClick={login} className={`btn sm:btn-sm md:btn-md lg:btn-lg ${success ? `btn-success` : `btn-primary`} mt-4`}>{success ? "Success!" : "Login"}</button>}
-        </div>)
+        </div>
+        )
 }

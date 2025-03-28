@@ -5,7 +5,7 @@ import LoginButton from "./LoginButton";
 
 export function LoginForm() {
     const [loginData, setLoginData] = useState({ name: "", email: "" });
-    
+
     async function handleInputChange(event) {
         const { name, value } = event.target;
         setLoginData((prevData) => ({
@@ -27,7 +27,9 @@ export function LoginForm() {
                 <input onChange={handleInputChange} name="email" type="email" className="input input-xs sm:input-sm md:input-md md:w-md lg:input-lg validator" placeholder="What's your e-mail?" required />
 
                 {/* {loading ? <LoadingIndicator /> : <button type="submit" className={`btn sm:btn-sm md:btn-md lg:btn-lg ${success ? `btn-success` : `btn-primary`} mt-4`}>{success ? "Success!" : "Login"}</button>} */}
-                <LoginButton loginData={loginData} />
+                <div className="flex justify-center">
+                    <LoginButton loginData={loginData} />
+                </div>
             </fieldset>
         </form>
     )

@@ -110,7 +110,7 @@ export default function MatchWithDogButton({ selectedDogs }) {
             {/* Matched Dog Modal */}
             {isModalOpen && matchedDog && (
                 <dialog open className="modal">
-                    <div className="modal-box bg-primary">
+                    <div className="modal-box bg-primary text-center">
                         <h3 className="font-semibold text-lg text-primary-content">You matched with...</h3>
                         <h1 className="font-bold text-4xl text-center text-primary-content border-dotted p-4">{matchedDog.name}!</h1>
                         <img src={matchedDog.img} alt="pic of dog" className="avatar rounded-full p-4" />
