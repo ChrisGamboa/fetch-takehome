@@ -98,7 +98,7 @@ export default function MatchWithDogButton({ selectedDogs }) {
             {isNoDogsModalOpen && (
                 <dialog open className="modal">
                     <div className="modal-box">
-                        <h3 className="font-bold text-lg">Life's ruff...</h3>
+                        <h3 className="font-bold text-lg">{`Life's ruff...`}</h3>
                         <p className="py-4">You need to select at least one dog!</p>
                         <div className="modal-action">
                             <button onClick={closeNoDogsModal} className="btn btn-error">Close</button>
